@@ -6,8 +6,8 @@
 SoftwareSerial Serial1(6, 7); // RX, TX
 #endif
 
-char ssid[] = "Iasmim-2.4Ghz";            // your network SSID (name)
-char pass[] = "Chess#7951";        // your network password
+char ssid[] = "RIBEIRO";            // your network SSID (name)
+char pass[] = "32110223";        // your network password
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 int reqCount = 0;                // number of requests received
 
@@ -61,7 +61,7 @@ void loop()
         char c = client.read(); //LÊ A REQUISIÇÃO DO CLIENTE
         buf.push(c); //BUFFER ARMAZENA A REQUISIÇÃO
 
-        if (buf.endsWith("GET /W")) { //SE O PARÂMETRO DA REQUISIÇÃO VINDO POR GET FOR IGUAL A "H", FAZ
+        if (buf.endsWith("GET /S")) { //SE O PARÂMETRO DA REQUISIÇÃO VINDO POR GET FOR IGUAL A "H", FAZ
           Serial.println("Sending response");
           // send a standard http response header
           // use \r\n instead of many println statements to speedup data send
@@ -72,8 +72,10 @@ void loop()
             "Keep-Alive: timeout=5\r\n" // the connection will be closed after completion of the response
             "\r\n");
           client.print("{\r\n");
-          client.print("\"WaterLevel\":");
-          client.print("123");
+          client.print("\"waterLevel\":");
+          client.print("100,\n");
+          client.print("\"flowLevel\":");
+          client.print("268.98\n");
           client.print("\r\n}");
           digitalWrite(13, LOW);
           client.stop();
